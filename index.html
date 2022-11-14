@@ -1,1 +1,187 @@
-test
+
+<html>
+<head>
+  <title>Learning 3D Object Shape and Layout without 3D Supervision</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js" type="module"></script>
+</head>
+
+<body> 
+
+<div class="container">
+  <h1><span style="font-size:42px">Multiview Compressive Coding for 3D Reconstruction</span></h1>
+  <br>
+  <table width="600px" align="center">
+    <tr>
+      <td align=center width=100px>
+        <center>
+          <span style="font-size:24px">Anonymous CVPR 2023 Submission</a></span>
+        </center>
+      </td>
+  </table>
+  <br>
+</div>
+
+</br>
+
+<div class="container">
+  <h1>Results on CO3D</h1>
+  <table width="100%">
+    <tr>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+    </tr>
+    <tr>
+      <td align="center" width="16%"><img src="resources/co3d/kidsbackpack/suitcase_31_1359_4114_503_frame000191.jpg" height=150></td>
+      <td align="center" width="16%"><img src="resources/co3d/kidsbackpack/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/co3d/kidsbackpack/mcc.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/co3d/apple/apple_black_18_seen_rgb.jpg" height=150></td>
+      <td align="center" width="16%"><img src="resources/co3d/apple/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/co3d/apple/mcc.gif" height=150></td>
+    </tr>
+  </table>
+</div>
+
+</br>
+
+<div class="container">
+  <h1>Results on iPhone Captures</h1>
+  <table width="100%">
+    <tr>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+    </tr>
+    <tr>
+      <td align="center" width="16%"><img src="resources/iphone/spyro/spyro.jpg" height=150></td>
+      <td align="center" width="16%"><img src="resources/iphone/spyro/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/iphone/spyro/mcc.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/iphone/quest2/quest2_img.png" height=150></td>
+      <td align="center" width="16%"><img src="resources/iphone/quest2/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/iphone/quest2/mcc.gif" height=150></td>
+    </tr>
+  </table>
+</div>
+
+</br>
+
+<div class="container">
+  <h1>Results on DALLE-2</h1>
+  <table width="100%">
+    <tr>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+    </tr>
+    <tr>
+      <td align="center" width="16%"><img src="resources/dalle2/capybara/capybara.png" height=150></td>
+      <td align="center" width="16%"><img src="resources/dalle2/capybara/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/dalle2/capybara/mcc.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/dalle2/corgi/corgi.jpg" height=150></td>
+      <td align="center" width="16%"><img src="resources/dalle2/corgi/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/dalle2/corgi/mcc.gif" height=150></td>
+    </tr>
+  </table>
+</div>
+
+</br>
+
+<div class="container">
+  <h1>Results on ImageNet</h1>
+  <table width="100%">
+    <tr>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+    </tr>
+    <tr>
+      <td align="center" width="16%"><img src="resources/imagenet/bear/bear_img.jpeg" height=150></td>
+      <td align="center" width="16%"><img src="resources/imagenet/bear/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/imagenet/bear/mcc.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/imagenet/camera/camera_img.jpeg" height=150></td>
+      <td align="center" width="16%"><img src="resources/imagenet/camera/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/imagenet/camera/mcc.gif" height=150></td>
+    </tr>
+  </table>
+</div>
+
+</br>
+
+<div class="container">
+  <h1>Results on Hypersim</h1>
+  <table width="100%">
+    <tr>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+    </tr>
+    <tr>
+      <td align="center" width="16%"><img src="resources/hypersim/scene1/rank5_i0_img.png" height=150></td>
+      <td align="center" width="16%"><img src="resources/hypersim/scene1/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/hypersim/scene1/mcc.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/hypersim/scene2/rank7_i0_img.png" height=150></td>
+      <td align="center" width="16%"><img src="resources/hypersim/scene2/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/hypersim/scene2/mcc.gif" height=150></td>
+    </tr>
+  </table>
+</div>
+
+</br>
+
+<div class="container">
+  <h1>Results on Taskonomy</h1>
+  <table width="100%">
+    <tr>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+      <th width="16%" align="center">Input Image</th>
+      <th width="16%" align="center">Seen</th>
+      <th width="16%" align="center">MCC</th>
+    </tr>
+    <tr>
+      <td align="center" width="16%"><img src="resources/taskonomy/scene1/rank0_i0_img.png" height=150></td>
+      <td align="center" width="16%"><img src="resources/taskonomy/scene1/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/taskonomy/scene1/mcc.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/taskonomy/scene2/rank7_i0_img.png" height=150></td>
+      <td align="center" width="16%"><img src="resources/taskonomy/scene2/seen.gif" height=150></td>
+      <td align="center" width="16%"><img src="resources/taskonomy/scene2/mcc.gif" height=150></td>
+    </tr>
+  </table>
+</div>
+
+<!-- 3D model viewer 
+<div class="container">
+  <h1> Interactive 3D Models</h1>
+  <table>
+    <tr>
+      <th style="width:50%" align="center">Input Image</th>
+      <th style="width:50%" align="center">3D Model</th>
+    </tr>
+    <tr>
+      <td align="center" width=30.0%><img src="resources/sceneshapenet/ex1/image.png" height="150"></td>
+      <td align="center" width=30.0%><model-viewer exposure="2" environment-image="neutral" interaction-prompt="when-focused" src="ex.glb" shadow-intensity="1"camera-controls></model-viewer></td>
+    </tr>
+  </table>
+</div> 
+-->
+ 
+<!--<p align="center" class="acknowledgement">Last updated: 30 July 2012</p>-->
+</body>
+</html>
