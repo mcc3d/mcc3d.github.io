@@ -102,3 +102,13 @@ a:hover {
     margin-left: 10px;
     margin-right: 45px;
 }
+
+.imdiv {
+  position: relative;
+  display: inline;
+}
+.imtip {
+  position: absolute;
+  bottom: 7;
+  right: 2;
+}
