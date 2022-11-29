@@ -1,415 +1,223 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-  <title>MCC</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js" type="module"></script>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MCC.">
+  <meta name="keywords" content="MCC, 3D Reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multiview Compressive Coding for 3D Reconstruction</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 </head>
-
-<body> 
-
-<div class="container">
-  <h1><span style="font-size:42px">Multiview Compressive Coding for 3D Reconstruction</span></h1>
-  <br>
-  <table width="800px" align="center">
-    <tr>
-      <td align=center>
-        <center>
-          <span style="font-size:24px">Anonymous CVPR 2023 Submission</a></span>
-          <br>
-          <span style="font-size:24px">Paper ID 2129</a></span>
-        </center>
-      </td>
-    </tr>
-  </table>
-</div>
-
-</br>
-
-<div class="containersmall">
-  <table width="1100px" align="center">
-    <tr>
-      <td align=center>
-        <center>
-          <span style="font-size:27px"><img src="resources/3dico.svg" height=60px style="vertical-align:middle;margin:0px 10px">Click on the 3D icon below for interactive visualizations with plotly!</span>
-          <br>
-          <br>
-          <br>
-          <span style="font-size:24px"><strong>Note</strong>: For the plotly interactive visualizations, we downsample our point clouds by 10x for better responsiveness and to reduce load times. The video animations below show our predictions in their original full resolution.</span>
-        </center>
-      </td>
-    </tr>
-  </table>
-</div>
-
-</br>
-
-<div class="container">
-  <h1>Results on CO3D <b>novel</b> categories</h1>
-  <table width="100%">
-    <tr>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-      <th width="10px" align="center"></th>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/co3d/kidsbackpack/suitcase_31_1359_4114_503_frame000191.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/co3d/kidsbackpack/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/kidsbackpack/kidsbackpack.html"><img src="resources/co3d/kidsbackpack/mcc.gif" height=150></a>
-          <a href="resources/co3d/kidsbackpack/kidsbackpack.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/co3d/volleyball/ball_242_25694_51060_1293_frame000151.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/co3d/volleyball/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/volleyball/volleyball.html"><img src="resources/co3d/volleyball/mcc.gif" height=150></a>
-          <a href="resources/co3d/volleyball/volleyball.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/co3d/toyplane1/toyplane_346_35993_65868_423_frame000033.jpg" height=150></td>
-      <td align="center" width="150px%"><img src="resources/co3d/toyplane1/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/toyplane1/toyplane.html"><img src="resources/co3d/toyplane1/mcc.gif" height=150></a>
-          <a href="resources/co3d/toyplane1/toyplane.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/co3d/cup/cup_577_85006_168069_2615_frame000193.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/co3d/cup/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/cup/cup.html"><img src="resources/co3d/cup/mcc.gif" height=150></a>
-          <a href="resources/co3d/cup/cup.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/co3d/apple/apple_black_18_seen_rgb.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/co3d/apple/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/apple/apple.html"><img src="resources/co3d/apple/mcc.gif" height=150></a>
-          <a href="resources/co3d/apple/apple.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/co3d/book/book_black_37_gt_rgb.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/co3d/book/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/book/book.html"><img src="resources/co3d/book/mcc.gif" height=150></a>
-          <a href="resources/co3d/book/book.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/co3d/suitcase/suitcase_black_33_gt_rgb.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/co3d/suitcase/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/suitcase/suitcase.html"><img src="resources/co3d/suitcase/mcc.gif" height=150></a>
-          <a href="resources/co3d/suitcase/suitcase.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/co3d/toyplane2/toyplane_black_30_gt_rgb.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/co3d/toyplane2/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/co3d/toyplane2/toyplane.html"><img src="resources/co3d/toyplane2/mcc.gif" height=150></a>
-          <a href="resources/co3d/toyplane2/toyplane.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
-
-</br>
-
-<div class="container">
-  <h1>Results on iPhone Captures</h1>
-  <table width="100%">
-    <tr>
-      <th width="110px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-      <th width="10px" align="center"></th>
-      <th width="110px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-    </tr>
-    <tr>
-      <td align="center" width="110px"><img src="resources/iphone/spyro/spyro.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/spyro/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/spyro/spyro.html"><img src="resources/iphone/spyro/mcc.gif" height=150></a>
-          <a href="resources/iphone/spyro/spyro.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="110px"><img src="resources/iphone/quest2/quest2_img.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/quest2/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/quest2/quest2.html"><img src="resources/iphone/quest2/mcc.gif" height=150></a>
-          <a href="resources/iphone/quest2/quest2.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="110px"><img src="resources/iphone/bottle/iphone_9_rgb.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/bottle/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/bottle/bottle.html"><img src="resources/iphone/bottle/mcc.gif" height=150></a>
-          <a href="resources/iphone/bottle/bottle.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="110px"><img src="resources/iphone/boot/boot_img.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/boot/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/boot/boot.html"><img src="resources/iphone/boot/mcc.gif" height=150></a>
-          <a href="resources/iphone/boot/boot.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="110px"><img src="resources/iphone/pikachu/pikachu.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/pikachu/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/pikachu/pikachu.html"><img src="resources/iphone/pikachu/mcc.gif" height=150></a>
-          <a href="resources/iphone/pikachu/pikachu.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="110px"><img src="resources/iphone/rubiks/rubiks.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/rubiks/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/rubiks/rubiks.html"><img src="resources/iphone/rubiks/mcc.gif" height=150></a>
-          <a href="resources/iphone/rubiks/rubiks.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="110px"><img src="resources/iphone/questpro/quest-pro.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/questpro/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/questpro/quest-pro.html"><img src="resources/iphone/questpro/mcc.gif" height=150></a>
-          <a href="resources/iphone/questpro/quest-pro.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="110px"><img src="resources/iphone/dyson/dyson_img.jpg" width=150></td>
-      <td align="center" width="150px"><img src="resources/iphone/dyson/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/iphone/dyson/dyson.html"><img src="resources/iphone/dyson/mcc.gif" height=150></a>
-          <a href="resources/iphone/dyson/dyson.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
+<body>
 
 
-  </table>
-</div>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Multiview Compressive Coding for 3D Reconstruction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://chaoyuan.org/">Chao-Yuan Wu</a>,</span>
+            <span class="author-block">
+              <a href="https://web.eecs.umich.edu/~justincj/">Justin Johnson</a>,</span>
+            <span class="author-block">
+              <a href="https://people.eecs.berkeley.edu/~malik/">Jitendra Malik</a>,</span>
+            <span class="author-block">
+              <a href="https://feichtenhofer.github.io/">Christoph Feichntenhofer</a>,</span>
+            <span class="author-block">
+              <a href="https://gkioxari.github.io/">Georgia Gkioxari</a></span>
+          </div>
 
-</br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Meta AI</span>
+          </div>
 
-<div class="container">
-  <h1>Results on DALLE-2</h1>
-  <table width="100%">
-    <tr>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-      <th width="10px" align="center"></th>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/dalle2/capybara/capybara.png" height=150></td>
-      <td align="center" width="150px"><img src="resources/dalle2/capybara/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/dalle2/capybara/capybara.html"><img src="resources/dalle2/capybara/mcc.gif" height=150></a>
-          <a href="resources/dalle2/capybara/capybara.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/dalle2/corgi/corgi.jpg" height=150></td>
-      <td align="center" width="150px"><img src="resources/dalle2/corgi/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/dalle2/corgi/corgi.html"><img src="resources/dalle2/corgi/mcc.gif" height=150></a>
-          <a href="resources/dalle2/corgi/corgi.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/dalle2/avocado/An_armchair_in_the_shape_of_an_avocado.png" height=150></td>
-      <td align="center" width="150px"><img src="resources/dalle2/avocado/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/dalle2/avocado/avocado.html"><img src="resources/dalle2/avocado/mcc.gif" height=150></a>
-          <a href="resources/dalle2/avocado/avocado.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/dalle2/marshmallow/marshmallow.png" height=150></td>
-      <td align="center" width="150px"><img src="resources/dalle2/marshmallow/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/dalle2/marshmallow/marshmallow.html"><img src="resources/dalle2/marshmallow/mcc.gif" height=150></a>
-          <a href="resources/dalle2/marshmallow/marshmallow.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-  </table>
-</div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="pdf-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="arxiv-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="code-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
 
-</br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="container">
-  <h1>Results on ImageNet</h1>
-  <table width="100%">
-    <tr>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-      <th width="10px" align="center"></th>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/imagenet/bear/bear_img.jpeg" height=150></td>
-      <td align="center" width="150px"><img src="resources/imagenet/bear/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/imagenet/bear/bear.html"><img src="resources/imagenet/bear/mcc.gif" height=150></a>
-          <a href="resources/imagenet/bear/bear.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/imagenet/camera/camera_img.jpeg" height=150></td>
-      <td align="center" width="150px"><img src="resources/imagenet/camera/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/imagenet/camera/camera.html"><img src="resources/imagenet/camera/mcc.gif" height=150></a>
-          <a href="resources/imagenet/camera/camera.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/imagenet/mailbox/mailbox_img.JPEG" height=150></td>
-      <td align="center" width="150px"><img src="resources/imagenet/mailbox/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/imagenet/mailbox/mailbox.html"><img src="resources/imagenet/mailbox/mcc.gif" height=150></a>
-          <a href="resources/imagenet/mailbox/mailbox.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/imagenet/elephant/elephant_img.JPEG" height=150></td>
-      <td align="center" width="150px"><img src="resources/imagenet/elephant/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/imagenet/elephant/elephant.html"><img src="resources/imagenet/elephant/mcc.gif" height=150></a>
-          <a href="resources/imagenet/elephant/elephant.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-  </table>
-</div>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="80%">
+        <source src="static/videos/mcc.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
 
-</br>
 
-<div class="container">
-  <h1>Results on Hypersim</h1>
-  <table width="100%">
-    <tr>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-      <th width="10px" align="center"></th>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/hypersim/scene1/rank5_i0_img.png" height=150></td>
-      <td align="center" width="150px"><img src="resources/hypersim/scene1/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/hypersim/scene1/scene1.html"><img src="resources/hypersim/scene1/mcc.gif" height=150></a>
-          <a href="resources/hypersim/scene1/scene1.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            MCC is a new approach for 3D reconstruction from a single RGB-D image.
+          </p>
+          <p>
+            A central goal of visual recognition is to understand objects and scenes from a single image.
+            2D recognition has witnessed tremendous progress thanks to large-scale learning and general-purpose representations.
+            But, 3D poses new challenges stemming from occlusions not depicted in the image.
+            Prior works try to overcome these by inferring from multiple views or rely on scarce CAD models and category-specific priors which hinder scaling to novel settings.
+            In this work, we explore single-view 3D reconstruction by learning generalizable representations inspired by advances in self-supervised learning. 
+            We introduce a simple framework that operates on 3D points of single objects or whole scenes coupled with category-agnostic large-scale training from diverse RGB-D videos. 
+            Our model, Multiview Compressive Coding (MCC), learns to compress the input appearance and geometry to predict the 3D structure by querying a 3D-aware decoder.
+            MCC's generality and efficiency allow it to learn from large-scale and diverse data sources with strong generalization to novel objects imagined by DALLE 2 or captured in-the-wild with an iPhone. 
+          </p>
         </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/hypersim/scene2/rank7_i0_img.png" height=150></td>
-      <td align="center" width="150px"><img src="resources/hypersim/scene2/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/hypersim/scene2/scene2.html"><img src="resources/hypersim/scene2/mcc.gif" height=150></a>
-          <a href="resources/hypersim/scene2/scene2.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
 
-</br>
 
-<div class="container">
-  <h1>Results on Taskonomy</h1>
-  <table width="100%">
-    <tr>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-      <th width="10px" align="center"></th>
-      <th width="150px" align="center">Input Image</th>
-      <th width="150px" align="center">Seen</th>
-      <th width="150px" align="center">MCC</th>
-    </tr>
-    <tr>
-      <td align="center" width="150px"><img src="resources/taskonomy/scene1/rank0_i0_img.png" height=150></td>
-      <td align="center" width="150px"><img src="resources/taskonomy/scene1/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/taskonomy/scene1/scene1.html"><img src="resources/taskonomy/scene1/mcc.gif" height=150></a>
-          <a href="resources/taskonomy/scene1/scene1.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-      <td align="center" width="10px"><div style="width:10px;height:10px solid #fff;"></div></td>
-      <td align="center" width="150px"><img src="resources/taskonomy/scene2/rank7_i0_img.png" height=150></td>
-      <td align="center" width="150px"><img src="resources/taskonomy/scene2/seen.gif" height=150></td>
-      <td align="center" width="150px">
-        <div class="imdiv">
-          <a href="resources/taskonomy/scene2/scene2.html"><img src="resources/taskonomy/scene2/mcc.gif" height=150></a>
-          <a href="resources/taskonomy/scene2/scene2.html"><img src="resources/3dico.svg" height=25px class="imtip"></a>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Approach. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Approach</h2>
 
- 
+        <div class="content has-text-justified">
+          <p>
+            MCC adopts a simple encoder-decoder architecture. The input RGB-D image is fed to the encoder to produce an input encoding. The decoder inputs a query 3D point, along with the input encoding, to predict its occupancy probability and RGB color. This is illustrated in the figure below. MCC requires only points for supervision. This means that we can learn from large RGB-D datasets. The input channel D is read from depth sensors, as in iPhones, or computed by off-the-shelf depth models, e.g. <a href="https://github.com/isl-org/MiDaS">MiDas</a>, or computed by <a href="https://colmap.github.io/">COLMAP</a> in the case of multiview video streams.
+          </p>
+          <img src="static/images/model.jpg" alt="Approach" width="100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Approach. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+
+        <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>iPhone</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>DALLE<span>&#183;</span>2</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>CO3D</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>ImageNet</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>Hypersim</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>Taskonomy</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{wu2022multiview,
+  author    = {Wu, Chao-Yuan and Johnson, Justin and Malik, Jitendra and Feichtenhofer, Christoph and Gkioxari, Georgia},
+  title     = {Multiview Compressive Coding for 3{D} Reconstruction},
+  journal   = {arxiv},
+  year      = {2022},
+}</code></pre>
+  </div>
+</section>
+
+
+
 </body>
 </html>
