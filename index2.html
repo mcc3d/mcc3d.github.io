@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MCC.">
+  <meta name="keywords" content="MCC, 3D Reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multiview Compressive Coding for 3D Reconstruction</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index2.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Multiview Compressive Coding for 3D Reconstruction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://chaoyuan.org/" target="_blank" rel="noopener noreferrer">Chao-Yuan Wu</a>,</span>
+            <span class="author-block">
+              <a href="https://web.eecs.umich.edu/~justincj/" target="_blank" rel="noopener noreferrer">Justin Johnson</a>,</span>
+            <span class="author-block">
+              <a href="https://people.eecs.berkeley.edu/~malik/" target="_blank" rel="noopener noreferrer">Jitendra Malik</a>,</span>
+            <span class="author-block">
+              <a href="https://feichtenhofer.github.io/" target="_blank" rel="noopener noreferrer">Christoph Feichntenhofer</a>,</span>
+            <span class="author-block">
+              <a href="https://gkioxari.github.io/" target="_blank" rel="noopener noreferrer">Georgia Gkioxari</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Meta AI</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="pdf-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="arxiv-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="code-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="80%">
+        <source src="static/videos/mcc.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            MCC is a new approach for 3D reconstruction from a single RGB-D image.
+          </p>
+          <p>
+            A central goal of visual recognition is to understand objects and scenes from a single image.
+            2D recognition has witnessed tremendous progress thanks to large-scale learning and general-purpose representations.
+            But, 3D poses new challenges stemming from occlusions not depicted in the image.
+            Prior works try to overcome these by inferring from multiple views or rely on scarce CAD models and category-specific priors which hinder scaling to novel settings.
+            In this work, we explore single-view 3D reconstruction by learning generalizable representations inspired by advances in self-supervised learning. 
+            We introduce a simple framework that operates on 3D points of single objects or whole scenes coupled with category-agnostic large-scale training from diverse RGB-D videos. 
+            Our model, Multiview Compressive Coding (MCC), learns to compress the input appearance and geometry to predict the 3D structure by querying a 3D-aware decoder.
+            MCC's generality and efficiency allow it to learn from large-scale and diverse data sources with strong generalization to novel objects imagined by DALLE 2 or captured in-the-wild with an iPhone. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Approach. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Approach</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            MCC adopts a simple encoder-decoder architecture. The input RGB-D image is fed to the encoder to produce an input encoding. The decoder inputs a query 3D point, along with the input encoding, to predict its occupancy probability and RGB color. This is illustrated in the figure below. MCC requires only points for supervision. This means that we can learn from large RGB-D datasets. The input channel D is read from depth sensors, as in iPhones, or computed by off-the-shelf depth models, e.g. <a href="https://github.com/isl-org/MiDaS">MiDas</a>, or computed by <a href="https://colmap.github.io/">COLMAP</a> in the case of multiview video streams.
+          </p>
+          <img src="static/images/model.jpg" alt="Approach" width="100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop is-fluid">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+        <div class="tabs is-boxed is-centered is-medium" id="tabs">
+          <ul>
+            <li data-tab="1" class="is-active"><a>iPhone</a></li>
+            <li data-tab="2"><a>DALL-E</a></li>
+            <li data-tab="3"><a>CO3D</a></li>
+            <li data-tab="4"><a>ImageNet</a></li>
+            <li data-tab="5"><a>Hypersim</a></li>
+            <li data-tab="6"><a>Taskonomy</a></li>
+          </ul>
+        </div>
+        <div id="tabs-content">
+          <div data-content="1" class="is-active content">
+            <table width="100%">
+              <tr>
+                <th width="12.6%" align="center">Input</th>
+                <th width="17%" align="center">Seen</th>
+                <th width="17%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="12.6%" align="center">Input</th>
+                <th width="17%" align="center">Seen</th>
+                <th width="17%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/chair/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/chair/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/chair/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/chair/chair.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/iphone/plant/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/plant/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/plant/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/plant/plant.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/iphone/dyson/dyson_img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/dyson/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/dyson/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/dyson/dyson.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/iphone/quest2/quest2_img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/quest2/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/quest2/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/quest2/quest2.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/bottle/iphone_9_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/bottle/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/bottle/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/bottle/bottle.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/iphone/rubiks/rubiks.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/rubiks/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/rubiks/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/rubiks/rubiks.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/pikachu/pikachu.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/pikachu/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/pikachu/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/pikachu/pikachu.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/iphone/boot/boot_img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/boot/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/boot/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/boot/boot.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/questpro/quest-pro.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/questpro/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/questpro/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="rresources/iphone/questpro/quest-pro.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/iphone/spyro/spyro.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/spyro/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/spyro/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/spyro/spyro.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/pushcar/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/pushcar/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/pushcar/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/pushcar/pushcar.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/iphone/towers/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/towers/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/towers/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/iphone/towers/towers.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="2" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/dalle2/capybara/capybara.png"></td>
+                <td align="center"><img src="static/resources/dalle2/capybara/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/capybara/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/dalle2/capybara/capybara.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/dalle2/corgi/corgi.jpg"></td>
+                <td align="center"><img src="static/resources/dalle2/corgi/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/corgi/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/dalle2/corgi/corgi.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/dalle2/avocado/An_armchair_in_the_shape_of_an_avocado.png"></td>
+                <td align="center"><img src="static/resources/dalle2/avocado/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/avocado/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/dalle2/avocado/avocado.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/dalle2/marshmallow/marshmallow.png"></td>
+                <td align="center"><img src="static/resources/dalle2/marshmallow/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/marshmallow/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/dalle2/marshmallow/marshmallow.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="3" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/kidsbackpack/suitcase_31_1359_4114_503_frame000191.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/kidsbackpack/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/kidsbackpack/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/kidsbackpack/kidsbackpack.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/co3d/volleyball/ball_242_25694_51060_1293_frame000151.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/volleyball/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/volleyball/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/volleyball/volleyball.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/toyplane1/toyplane_346_35993_65868_423_frame000033.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane1/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane1/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/toyplane1/toyplane.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/co3d/cup/cup_577_85006_168069_2615_frame000193.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/cup/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/cup/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/cup/cup.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/apple/apple_black_18_seen_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/apple/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/apple/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/apple/apple.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/co3d/book/book_black_37_gt_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/book/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/book/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/book/book.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/suitcase/suitcase_black_33_gt_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/suitcase/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/suitcase/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/suitcase/suitcase.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/co3d/toyplane2/toyplane_black_30_gt_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane2/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane2/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/co3d/toyplane2/toyplane.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="4" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/bear/bear_img.jpeg"></td>
+                <td align="center"><img src="static/resources/imagenet/bear/seen.gif"></td>
+                <td align="center"><img src="static/resources/imagenet/bear/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/imagenet/bear/bear.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/imagenet/camera/camera_img.jpeg"></td>
+                <td align="center"><img src="static/resources/imagenet/camera/seen.gif"></td>
+                <td align="center"><img src="static/resources/imagenet/camera/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/imagenet/mailbox/mailbox.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/imagenet/mailbox/mailbox_img.JPEG"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/mailbox/seen.gif"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/mailbox/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/dalle2/avocado/avocado.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/elephant/elephant_img.JPEG"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/elephant/seen.gif"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/elephant/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/imagenet/elephant/elephant.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="5" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/hypersim/scene1/rank5_i0_img.png"></td>
+                <td align="center"><img src="static/resources/hypersim/scene1/seen.gif"></td>
+                <td align="center"><img src="static/resources/hypersim/scene1/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/hypersim/scene1/scene1.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+                <td align="center"><img src="static/resources/hypersim/scene2/rank7_i0_img.png"></td>
+                <td align="center"><img src="static/resources/hypersim/scene2/seen.gif"></td>
+                <td align="center"><img src="static/resources/hypersim/scene2/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle"><a href="resources/hypersim/scene2/scene2.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="6">
+          <table width="100%">
+            <tr>
+              <th width="15.6%" align="center">Input</th>
+              <th width="15.6%" align="center">Seen</th>
+              <th width="15.6%" align="center">MCC</th>
+              <th width="2%"  align="center"></th>
+              <th width="15.6%" align="center">Input</th>
+              <th width="15.6%" align="center">Seen</th>
+              <th width="15.6%" align="center">MCC</th>
+              <th width="2%"  align="center"></th>
+            </tr>
+            <tr>
+              <td align="center"><img src="static/resources/taskonomy/scene1/rank0_i0_img.png"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene1/seen.gif"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene1/mcc.gif"></td>
+              <td align="center" style="vertical-align: middle"><a href="resources/taskonomy/scene1/scene1.html" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer"><span>3D</span></a></td>
+              <td align="center"><img src="static/resources/taskonomy/scene2/rank7_i0_img.png"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene2/seen.gif"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene2/mcc.gif"></a></td>
+              <td align="center" style="vertical-align: middle"><a href="resources/taskonomy/scene2/scene2.html" class="external-link button is-normal is-rounded is-dark"><span>3D</span></a></td>
+            </tr>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{wu2023multiview,
+  author    = {Wu, Chao-Yuan and Johnson, Justin and Malik, Jitendra and Feichtenhofer, Christoph and Gkioxari, Georgia},
+  title     = {Multiview Compressive Coding for 3{D} Reconstruction},
+  journal   = {arxiv},
+  year      = {2023},
+}</code></pre>
+  </div>
+</section>
+
+
+
+</body>
+</html>
