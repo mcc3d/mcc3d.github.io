@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MCC.">
+  <meta name="keywords" content="MCC, 3D Reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multiview Compressive Coding for 3D Reconstruction</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index_old.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Multiview Compressive Coding for 3D Reconstruction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://chaoyuan.org/" target="_blank" rel="noopener noreferrer">Chao-Yuan Wu</a>,</span>
+            <span class="author-block">
+              <a href="https://web.eecs.umich.edu/~justincj/" target="_blank" rel="noopener noreferrer">Justin Johnson</a>,</span>
+            <span class="author-block">
+              <a href="https://people.eecs.berkeley.edu/~malik/" target="_blank" rel="noopener noreferrer">Jitendra Malik</a>,</span>
+            <span class="author-block">
+              <a href="https://feichtenhofer.github.io/" target="_blank" rel="noopener noreferrer">Christoph Feichntenhofer</a>,</span>
+            <span class="author-block">
+              <a href="https://gkioxari.github.io/" target="_blank" rel="noopener noreferrer">Georgia Gkioxari</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Meta AI</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="pdf-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="arxiv-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="code-link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="80%">
+        <source src="static/videos/mcc.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            MCC is a new approach for 3D reconstruction from a single RGB-D image.
+          </p>
+          <p>
+            A central goal of visual recognition is to understand objects and scenes from a single image.
+            2D recognition has witnessed tremendous progress thanks to large-scale learning and general-purpose representations.
+            But, 3D poses new challenges stemming from occlusions not depicted in the image.
+            Prior works try to overcome these by inferring from multiple views or rely on scarce CAD models and category-specific priors which hinder scaling to novel settings.
+            In this work, we explore single-view 3D reconstruction by learning generalizable representations inspired by advances in self-supervised learning. 
+            We introduce a simple framework that operates on 3D points of single objects or whole scenes coupled with category-agnostic large-scale training from diverse RGB-D videos. 
+            Our model, Multiview Compressive Coding (MCC), learns to compress the input appearance and geometry to predict the 3D structure by querying a 3D-aware decoder.
+            MCC's generality and efficiency allow it to learn from large-scale and diverse data sources with strong generalization to novel objects imagined by DALLE 2 or captured in-the-wild with an iPhone. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Approach. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Approach</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            MCC adopts a simple encoder-decoder architecture. The input RGB-D image is fed to the encoder to produce an input encoding. The decoder inputs a query 3D point, along with the input encoding, to predict its occupancy probability and RGB color. This is illustrated in the figure below. MCC requires only points for supervision. This means that we can learn from large RGB-D datasets. The input channel D is read from depth sensors, as in iPhones, or computed by off-the-shelf depth models, e.g. <a href="https://github.com/isl-org/MiDaS">MiDas</a>, or computed by <a href="https://colmap.github.io/">COLMAP</a> in the case of multiview video streams.
+          </p>
+          <img src="static/images/model.jpg" alt="Approach" width="100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Approach. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+
+        <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span>iPhone</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span>DALLE<span>&#183;</span>2</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span>CO3D</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span>ImageNet</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span>Hypersim</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="static/results.html"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span>Taskonomy</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{wu2023multiview,
+  author    = {Wu, Chao-Yuan and Johnson, Justin and Malik, Jitendra and Feichtenhofer, Christoph and Gkioxari, Georgia},
+  title     = {Multiview Compressive Coding for 3{D} Reconstruction},
+  journal   = {arxiv},
+  year      = {2023},
+}</code></pre>
+  </div>
+</section>
+
+
+
+</body>
+</html>

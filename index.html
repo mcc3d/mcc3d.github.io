@@ -22,10 +22,11 @@
   <link rel="icon" href="./static/images/favicon.png">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.9.0.min.js"></script><script src="https://cdn.plot.ly/plotly-2.9.0.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <script src="./static/js/index2.js"></script>
 </head>
 <body>
 
@@ -95,6 +96,7 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
+
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="80%">
         <source src="static/videos/mcc.mp4"
@@ -152,53 +154,320 @@
 </section>
 
 <section class="section">
-  <div class="container is-max-desktop">
-    <!-- Approach. -->
+  <div class="container is-max-desktop is-fluid">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Results</h2>
-
-        <div class="column has-text-centered">
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="static/results.html"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
-                  <span>iPhone</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="static/results.html"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
-                  <span>DALLE<span>&#183;</span>2</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="static/results.html"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
-                  <span>CO3D</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="static/results.html"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
-                  <span>ImageNet</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="static/results.html"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
-                  <span>Hypersim</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="static/results.html"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
-                  <span>Taskonomy</span>
-                </a>
-              </span>
-            </div>
+        <div class="tabs is-boxed is-centered is-medium" id="tabs">
+          <ul>
+            <li data-tab="1" class="is-active"><a>iPhone</a></li>
+            <li data-tab="2"><a>DALL-E</a></li>
+            <li data-tab="3"><a>CO3D</a></li>
+            <li data-tab="4"><a>ImageNet</a></li>
+            <li data-tab="5"><a>Hypersim</a></li>
+            <li data-tab="6"><a>Taskonomy</a></li>
+          </ul>
+        </div>
+        <div>
+          We can put some explanatory text here.
+        </div>
+        <div id="tabs-content">
+          <div data-content="1" class="is-active content">
+            We can put some other text here.
+            <table width="100%">
+              <tr>
+                <th width="12.6%" align="center">Input</th>
+                <th width="17%" align="center">Seen</th>
+                <th width="17%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="12.6%" align="center">Input</th>
+                <th width="17%" align="center">Seen</th>
+                <th width="17%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/chair/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/chair/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/chair/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/chair">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/iphone/plant/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/plant/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/plant/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/plant">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/iphone/dyson/dyson_img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/dyson/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/dyson/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/dyson">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/iphone/quest2/quest2_img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/quest2/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/quest2/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/quest2">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/bottle/iphone_9_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/bottle/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/bottle/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/bottle">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/iphone/rubiks/rubiks.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/rubiks/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/rubiks/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/rubiks">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/boot/boot_img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/boot/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/boot/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/boot">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/iphone/questpro/quest-pro.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/questpro/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/questpro/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/questpro">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/iphone/pushcar/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/pushcar/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/pushcar/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/pushcar">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/iphone/towers/img.jpg"></td>
+                <td align="center"><img src="static/resources/iphone/towers/seen.gif"></td>
+                <td align="center"><img src="static/resources/iphone/towers/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="iphone/towers">3D</button>
+                </td>
+              </tr>
+            </table>
           </div>
-        
+          <div data-content="2" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/dalle2/capybara/capybara.png"></td>
+                <td align="center"><img src="static/resources/dalle2/capybara/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/capybara/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="dalle2/capybara">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/dalle2/corgi/corgi.jpg"></td>
+                <td align="center"><img src="static/resources/dalle2/corgi/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/corgi/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="dalle2/corgi">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/dalle2/avocado/An_armchair_in_the_shape_of_an_avocado.png"></td>
+                <td align="center"><img src="static/resources/dalle2/avocado/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/avocado/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="dalle2/avocado">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/dalle2/marshmallow/marshmallow.png"></td>
+                <td align="center"><img src="static/resources/dalle2/marshmallow/seen.gif"></td>
+                <td align="center"><img src="static/resources/dalle2/marshmallow/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="dalle2/marshmallow">3D</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="3" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/kidsbackpack/suitcase_31_1359_4114_503_frame000191.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/kidsbackpack/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/kidsbackpack/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/kidsbackpack">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/co3d/volleyball/ball_242_25694_51060_1293_frame000151.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/volleyball/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/volleyball/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/volleyball">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/toyplane1/toyplane_346_35993_65868_423_frame000033.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane1/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane1/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/toyplane1">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/co3d/cup/cup_577_85006_168069_2615_frame000193.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/cup/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/cup/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/cup">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/apple/apple_black_18_seen_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/apple/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/apple/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/apple">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/co3d/book/book_black_37_gt_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/book/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/book/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/book">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/co3d/suitcase/suitcase_black_33_gt_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/suitcase/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/suitcase/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/suitcase">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/co3d/toyplane2/toyplane_black_30_gt_rgb.jpg"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane2/seen.gif"></td>
+                <td align="center"><img src="static/resources/co3d/toyplane2/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="co3d/toyplane2">3D</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="4" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/bear/bear_img.jpeg"></td>
+                <td align="center"><img src="static/resources/imagenet/bear/seen.gif"></td>
+                <td align="center"><img src="static/resources/imagenet/bear/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="imagenet/bear">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/imagenet/camera/camera_img.jpeg"></td>
+                <td align="center"><img src="static/resources/imagenet/camera/seen.gif"></td>
+                <td align="center"><img src="static/resources/imagenet/camera/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="imagenet/camera">3D</button>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/imagenet/mailbox/mailbox_img.JPEG"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/mailbox/seen.gif"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/mailbox/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="imagenet/mailbox">3D</button>
+                </td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/elephant/elephant_img.JPEG"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/elephant/seen.gif"></td>
+                <td align="center" style="vertical-align: middle"><img src="static/resources/imagenet/elephant/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="imagenet/elephant">3D</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="5" class="content">
+            <table width="100%">
+              <tr>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+                <th width="15.6%" align="center">Input</th>
+                <th width="15.6%" align="center">Seen</th>
+                <th width="15.6%" align="center">MCC</th>
+                <th width="2%"  align="center"></th>
+              </tr>
+              <tr>
+                <td align="center"><img src="static/resources/hypersim/scene1/rank5_i0_img.png"></td>
+                <td align="center"><img src="static/resources/hypersim/scene1/seen.gif"></td>
+                <td align="center"><img src="static/resources/hypersim/scene1/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="hypersim/scene1">3D</button>
+                </td>
+                <td align="center"><img src="static/resources/hypersim/scene2/rank7_i0_img.png"></td>
+                <td align="center"><img src="static/resources/hypersim/scene2/seen.gif"></td>
+                <td align="center"><img src="static/resources/hypersim/scene2/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="hypersim/scene2">3D</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div data-content="6" class="content">
+          <table width="100%">
+            <tr>
+              <th width="15.6%" align="center">Input</th>
+              <th width="15.6%" align="center">Seen</th>
+              <th width="15.6%" align="center">MCC</th>
+              <th width="2%"  align="center"></th>
+              <th width="15.6%" align="center">Input</th>
+              <th width="15.6%" align="center">Seen</th>
+              <th width="15.6%" align="center">MCC</th>
+              <th width="2%"  align="center"></th>
+            </tr>
+            <tr>
+              <td align="center"><img src="static/resources/taskonomy/scene1/rank0_i0_img.png"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene1/seen.gif"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene1/mcc.gif"></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="taskonomy/scene1">3D</button>
+                </td>
+              <td align="center"><img src="static/resources/taskonomy/scene2/rank7_i0_img.png"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene2/seen.gif"></td>
+              <td align="center"><img src="static/resources/taskonomy/scene2/mcc.gif"></a></td>
+                <td align="center" style="vertical-align: middle">
+                  <button class="button is-rounded is-dark js-modal-trigger" data-target="modal" data-path="taskonomy/scene2">3D</button>
+                </td>
+            </tr>
+          </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -217,7 +486,18 @@
   </div>
 </section>
 
+<div id="modal" class="modal">
+  <div class="modal-background"></div>
 
+  <div class="modal-content">
+    <div id='plot-loading-div' class="box">
+      Loading model...
+    </div>
+    <div id='plot-div'></div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
 
 </body>
 </html>
