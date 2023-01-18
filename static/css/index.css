@@ -156,3 +156,18 @@ body {
   border-radius: 5px;
 }
 
+#tabs-content div {
+  display: none;
+}
+
+#tabs-content div.is-active {
+  display: block;
+}
+
+.modal-card {
+  width: 800px;
+}
+
+.modal-content {
+  width: 800px;
+}
