@@ -1,34 +1,80 @@
-const EXAMPLES = {
-  'co3d': [
-    'apple',
-    'book',
-    'cup',
-    'kidsbackpack',
-    'suitcase',
-    'toyplane1',
-    'toyplane2',
-    'volleyball',
-  ],
-  'iphone': [
-    'boot',
-    'bottle',
-    'chair',
-    'dyson',
-    'pikachu',
-    'plant',
-    'pushcar',
-    'quest2',
-    'questpro',
-    'rubiks',
-    'spyro',
-    'towers',
-  ],
-};
+
 
 
 function main() {
   setupTabs();
   setupModals();
+  setupImageLoading();
+}
+
+function setupImageLoading() {
+  const groups = [
+    'iphone',
+    'dalle2',
+    'co3d',
+    'imagenet',
+    'hypersim',
+    'taskonomy',
+  ];
+
+  // When we click on a tab, schedule its images for loading.
+  for (_group of groups) {
+    (function(group) {
+      $('li[data-tab="' + group + '"]').click(() => {
+        loadImages(group);
+      });
+    })(_group);
+  }
+
+  // Start loading image groups in order.
+  // This is pretty ugly! I should learn how to use promises to avoid these
+  // nasty nested callbacks!
+  loadImages('iphone', function() {
+    loadImages('dalle2', function() {
+      loadImages('co3d', function() {
+        loadImages('imagenet', function() {
+          loadImages('hypersim', function() {
+            loadImages('taskonomy');
+          });
+        });
+      });
+    });
+  });
+}
+
+let _loaded_groups = new Set();
+
+// Calling this schedules images in the specified group for loading by copying
+// their data-src attribute to src; once all images in the group have loaded
+// we call the callback (which defaults to a trivial function).
+function loadImages(group, cb = () => {}) {
+  // Make sure we don't try to load the same group more than once
+  if (_loaded_groups.has(group)) {
+    console.log('images in group ' + group + ' have already been scheduled to load');
+    return;
+  }
+  console.log('scheduling images in group ' + group);
+  _loaded_groups.add(group);
+
+  // Find all images in the group
+  let imgs = $('div[data-content="' + group + '"] img');
+
+  let to_load = new Set();
+  imgs.each((idx, img) => {
+    const url = $(img).data('src');
+    to_load.add(url);
+    img.onload = function() {
+      to_load.delete(url);
+      if (to_load.size === 0) {
+        cb();
+      }
+    }
+  });
+
+  imgs.each((idx, img) => {
+    const url = $(img).data('src');
+    img.src = url;
+  });
 }
 
 
@@ -55,7 +101,7 @@ function setupModals() {
     const fmt_path = scene_dir + '/fmt.json';
     openModal(modal);
     $.getJSON(pc_path, function(data) {
-      console.log(data);
+      // console.log(data);
       const plot_data = [
         {
           type: "scatter3d",

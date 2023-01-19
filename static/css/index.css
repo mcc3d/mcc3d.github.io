@@ -156,11 +156,11 @@ body {
   border-radius: 5px;
 }
 
-#tabs-content div {
+#tabs-content div.tab-content {
   display: none;
 }
 
-#tabs-content div.is-active {
+#tabs-content div.tab-content.is-active {
   display: block;
 }
 
