@@ -18,8 +18,7 @@ function setupImageLoading() {
   ];
 
   // When we click on a tab, schedule its images for loading.
-  for (_group of groups) {
-    let group = _group;
+  for (let group of groups) {
     $('li[data-tab="' + group + '"]').click(() => {
       loadImages(group);
     });
