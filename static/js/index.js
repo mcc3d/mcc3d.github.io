@@ -19,11 +19,10 @@ function setupImageLoading() {
 
   // When we click on a tab, schedule its images for loading.
   for (_group of groups) {
-    (function(group) {
-      $('li[data-tab="' + group + '"]').click(() => {
-        loadImages(group);
-      });
-    })(_group);
+    let group = _group;
+    $('li[data-tab="' + group + '"]').click(() => {
+      loadImages(group);
+    });
   }
 
   // Start loading image groups in order.
